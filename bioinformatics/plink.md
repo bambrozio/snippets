@@ -2,6 +2,7 @@
 - Simulating Plink files (.bim, .bed, .fam, .phe)
 - Converting Plink files to VCF
 - Extracting phenotype from .fam file into a .phe to be used with the Plink argument `--pheno` in a association (`--glm`) test.
+- Run association
 ```
 $ echo "1000000  null      0.00 1.00  1.00 1.00" > 1miSNP5kSamples.sim
 $ echo "1000     disease   0.00 1.00  2.00 mult" >> 1miSNP5kSamples.sim
@@ -74,12 +75,49 @@ $ mv 1miSNP5kSamples.vcf.gz 1miSNP5kSamples.vcf.bgz
 
 $ ls -lath
 total 2.6G
--rw-r----- 1 airflow airflow  886 Feb 19 15:13 1miSNP5kSamples.log
--rw-r----- 1 airflow airflow 1.3G Feb 19 15:13 1miSNP5kSamples.vcf.bgz
--rw-r----- 1 airflow airflow  86K Feb 19 14:59 1miSNP5kSamples.phe
--rw-r----- 1 airflow airflow  26M Feb 19 14:44 1miSNP5kSamples.bim
--rw-r----- 1 airflow airflow 116K Feb 19 14:44 1miSNP5kSamples.fam
--rw-r----- 1 airflow airflow 1.2G Feb 19 14:44 1miSNP5kSamples.bed
--rw-r----- 1 airflow airflow  35M Feb 19 14:43 1miSNP5kSamples-temporary.simfreq
--rw-r----- 1 airflow airflow   80 Feb 19 14:34 1miSNP5kSamples.sim
+...  886 Feb 19 15:13 1miSNP5kSamples.log
+... 1.3G Feb 19 15:13 1miSNP5kSamples.vcf.bgz
+...  86K Feb 19 14:59 1miSNP5kSamples.phe
+...  26M Feb 19 14:44 1miSNP5kSamples.bim
+... 116K Feb 19 14:44 1miSNP5kSamples.fam
+... 1.2G Feb 19 14:44 1miSNP5kSamples.bed
+...  35M Feb 19 14:43 1miSNP5kSamples-temporary.simfreq
+...   80 Feb 19 14:34 1miSNP5kSamples.sim
+
+
+$ plink2 --glm --bfile 1miSNP5kSamples --pheno 1miSNP5kSamples.phe --pheno-name T2D --out 1miSNP5kSamples
+PLINK v2.00a2LM 64-bit Intel (6 Oct 2019)      www.cog-genomics.org/plink/2.0/
+(C) 2005-2019 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to 1miSNP5kSamples.log.
+Options in effect:
+  --bfile 1miSNP5kSamples
+  --glm
+  --out 1miSNP5kSamples
+  --pheno 1miSNP5kSamples.phe
+  --pheno-name T2D
+
+Start time: Wed Feb 19 15:30:41 2020
+16034 MiB RAM detected; reserving 8017 MiB for main workspace.
+Using up to 4 compute threads.
+5000 samples (5000 females, 0 males; 5000 founders) loaded from
+1miSNP5kSamples.fam.
+1001000 variants loaded from 1miSNP5kSamples.bim.
+1 binary phenotype loaded (2100 cases, 2900 controls).
+Calculating allele frequencies... done.
+--glm logistic regression on phenotype 'T2D': done.
+Results written to 1miSNP5kSamples.T2D.glm.logistic .
+End time: Wed Feb 19 15:31:13 2020
+
+
+$ head 1miSNP5kSamples.T2D.glm.logistic 
+#CHROM  POS     ID      REF     ALT     A1      TEST    OBS_CT  OR      LOG(OR)_SE      Z_STAT  P
+1       1       null_0  T       A       A       ADD     5000    1.0671  0.0666712       0.974056        0.330029
+1       2       null_1  A       C       C       ADD     5000    1.10771 0.0525845       1.9453  0.0517392
+1       3       null_2  T       G       G       ADD     5000    1.01267 0.0409198       0.307753        0.75827
+1       4       null_3  T       C       C       ADD     5000    1.00489 0.040452        0.120568        0.904033
+1       5       null_4  C       A       A       ADD     5000    0.975667        0.0563826       -0.436911       0.662176
+1       6       null_5  A       T       T       ADD     5000    0.916188        0.0885134       -0.988937       0.322694
+1       7       null_6  G       C       C       ADD     5000    1.03001 0.0417934       0.707417        0.479308
+1       8       null_7  T       A       A       ADD     5000    0.931843        0.0565486       -1.24832        0.211915
+1       9       null_8  G       C       C       ADD     5000    0.9851  0.0408423       -0.367573       0.713191
 ```
