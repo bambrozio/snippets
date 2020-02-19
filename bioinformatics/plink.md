@@ -85,6 +85,41 @@ total 2.6G
 ...   80 Feb 19 14:34 1miSNP5kSamples.sim
 
 
+$ head 1miSNP5kSamples.bim 
+1       null_0  0       1       A       T
+1       null_1  0       2       C       A
+1       null_2  0       3       G       T
+1       null_3  0       4       C       T
+1       null_4  0       5       A       C
+1       null_5  0       6       T       A
+1       null_6  0       7       C       G
+1       null_7  0       8       A       T
+1       null_8  0       9       C       G
+1       null_9  0       10      T       A
+$ head 1miSNP5kSamples.fam 
+per0 per0 0 0 2 2
+per1 per1 0 0 2 2
+per2 per2 0 0 2 2
+per3 per3 0 0 2 2
+per4 per4 0 0 2 2
+per5 per5 0 0 2 2
+per6 per6 0 0 2 2
+per7 per7 0 0 2 2
+per8 per8 0 0 2 2
+per9 per9 0 0 2 2
+$ tail 1miSNP5kSamples.fam 
+per4990 per4990 0 0 2 1
+per4991 per4991 0 0 2 1
+per4992 per4992 0 0 2 1
+per4993 per4993 0 0 2 1
+per4994 per4994 0 0 2 1
+per4995 per4995 0 0 2 1
+per4996 per4996 0 0 2 1
+per4997 per4997 0 0 2 1
+per4998 per4998 0 0 2 1
+per4999 per4999 0 0 2 1
+
+
 $ plink2 --glm --bfile 1miSNP5kSamples --pheno 1miSNP5kSamples.phe --pheno-name T2D --out 1miSNP5kSamples
 PLINK v2.00a2LM 64-bit Intel (6 Oct 2019)      www.cog-genomics.org/plink/2.0/
 (C) 2005-2019 Shaun Purcell, Christopher Chang   GNU General Public License v3
